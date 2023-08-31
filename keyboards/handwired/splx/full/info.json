@@ -32,13 +32,15 @@
     "split": {
        "enabled": true,
         "matrix_pins": {
-            "cols": [
-                "B2", "B1", "B0",
-                "F0", "F1", "F4", "F5"
-            ],
-            "rows": [
-                "F7", "B6", "B5", "B4"
-            ]
+            "right": {
+                "cols": [
+                    "B2", "B1", "B0",
+                    "F0", "F1", "F4", "F5"
+                ],
+                "rows": [
+                    "F7", "B6", "B5", "B4"
+                ]
+            }
         },
         "transport": {
             "protocol": "i2c"
