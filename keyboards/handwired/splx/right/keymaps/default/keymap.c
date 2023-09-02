@@ -14,17 +14,21 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-     * ┌───┬───┬───┐
-     * │MO1│ / │ - │
-     * ├───┼───┼───┤
-     * │ 1 │ 2 │ 3 │
-     * └───┴───┴───┘
+     *     ┌───┬───┬───┬───┬───┐
+     *     │ / │ - │ - │ - │ - │
+     *     ├───┼───┼───┼───┼───┼───┐
+     *     │ 2 │ 3 │ 3 │ 3 │ 3 │ 3 │
+     *     ├───┼───┼───┼───┼───┼───┤
+     *     │ 2 │ 3 │ 3 │ 3 │ 3 │ 3 │
+     * ┌───┼───┼───┼───┼───┼───┼───┘
+     * │ 1 │ 2 │ 3 │ 3 │ 3 │ 3 │
+     * └───┴───┴───┴───┴───┴───┘
      */
     [BASE] = LAYOUT(
-                  KC_SCLN , KC_COMM , KC_DOT  , KC_P    , KC_Y    ,
-        KC_EQL  , KC_A    , KC_O    , KC_E    , KC_U    , KC_I    ,
-        KC_SLSH , KC_QUOT , KC_Q    , KC_J    , KC_K    , KC_X    ,
-                  KC_LCTL , KC_LALT , KC_LSFT , KC_LGUI , KC_SPC  , KC_ENTER
+                  KC_F    , KC_G    , KC_C    , KC_R    , KC_L    ,
+                  KC_D    , KC_H    , KC_T    , KC_N    , KC_S    , KC_MINS   ,
+                  KC_B    , KC_M    , KC_W    , KC_V    , KC_Z    , S(KC_EQL) ,
+        KC_SPC  , KC_TAB  , MO(UP)  , KC_RSFT , KC_RALT , KC_RCTL
     ),
 
     /*
@@ -35,10 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └───┴───┴───┘
      */
     [UP] = LAYOUT(
-                  KC_SCLN , KC_COMM , KC_DOT  , KC_P    , KC_Y    ,
-        KC_EQL  , KC_A    , KC_O    , KC_E    , KC_U    , KC_I    ,
-        KC_SLSH , KC_QUOT , KC_Q    , KC_J    , KC_K    , KC_X    ,
-                  KC_LCTL , KC_LALT , KC_LSFT , KC_LGUI , KC_SPC  , KC_ENTER
+                  XXXXXXX , KC_1    , KC_2    , KC_3    , KC_DOT  ,
+                  XXXXXXX , KC_4    , KC_5    , KC_6    , KC_0    , KC_SLASH  ,
+                  XXXXXXX , KC_7    , KC_8    , KC_9    , KC_COMM , XXXXXXX   ,
+        XXXXXXX , XXXXXXX , _______ , XXXXXXX , XXXXXXX , XXXXXXX
     )
 };
 
