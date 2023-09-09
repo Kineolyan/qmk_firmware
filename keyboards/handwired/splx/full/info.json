@@ -42,10 +42,14 @@
                 ]
             }
         },
+        "main": "left",
         "transport": {
             "protocol": "serial",
         },
-        "soft_serial_pin": "D0"
+        "soft_serial_pin": "D0",
+        "usb_detect": {
+            "enabled": true
+        }
     },
     "layouts": {
         "LAYOUT_flat": {
