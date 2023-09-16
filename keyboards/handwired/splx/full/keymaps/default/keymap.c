@@ -29,7 +29,7 @@ enum custom_keycodes {
 // void send_grave(char* const key) {
 //     SEND_STRING(SS_RALT("^") key);
 // }
-#define SEND_CIRC(key) SEND_STRING(SS_RALT("^") key);
+#define SEND_CIRC(key) SEND_STRING(SS_RALT("6") key);
 #define SEND_GRAVE(key) SEND_STRING(SS_RALT("`") key);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -57,7 +57,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_GRAVE("e");
             break;
         case KGR_U:
-            SEND_CIRC("u");
+            SEND_GRAVE("u");
             break;
         }
     }
@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     , KC_F        , KC_G        , KC_C        , KC_R        , KC_L
                     , GUI_T(KC_D) , MEH_T(KC_H) , SFT_T(KC_T) , CTL_T(KC_N) , ALT_T(KC_S), KC_SLSH
                     , KC_B        , KC_M        , KC_W        , KC_V        , KC_Z       , KC_MINS
-      , KC_TAB      , KC_SPC      , MO(NAV)     , KC_ESC      , KC_RALT     , KC_RGUI
+      , KC_TAB      , KC_SPC      , MO(NAV)     , MO(CSP)     , KC_RALT     , KC_RGUI
     ),
     // Do not use tap-hold mode in this layer, using a lot of shifted keys
     [PWR] = LAYOUT_vertical(
@@ -127,9 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       , KC_LSFT , RALT(KC_COMM), XXXXXXX    , KGR_E      , RALT(KC_Y) , RALT(KC_COMM)
                 , _______      , _______    , _______    , _______    , _______       , _______
 
-                , UC(0x2026), UC(0xB7)    , UC(0xD7)     , UC(0xB1)      , XXXXXXX
+                , XXXXXXX   , UC(0x2026)  , UC(0xB7)     , UC(0xD7)      , UC(0xB1)
                 , XXXXXXX   , RSA(KC_QUOT), RALT(KC_QUOT), RALT(KC_GRAVE), RALT(KC_6) , XXXXXXX
-                , RALT(KC_5), XXXXXXX     , XXXXXXX      , XXXXXXX       , XXXXXXX    , KC_RSFT
+                , XXXXXXX   , RALT(KC_5)  , XXXXXXX      , XXXXXXX       , XXXXXXX    , KC_RSFT
       , _______ , _______   , _______     , _______      , _______       , _______
     )
 };
