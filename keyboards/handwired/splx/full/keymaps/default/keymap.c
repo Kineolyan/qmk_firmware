@@ -8,6 +8,60 @@ enum layers {
     PWR,
     NAV,
     WM,
+    CSP,
+};
+
+enum custom_keycodes {
+  KCR_A = SAFE_RANGE,
+  KCR_E,
+  KCR_I,
+  KCR_O,
+  KCR_U,
+  KGR_A,
+  KGR_E,
+  KGR_U,
+  // KU_DIER,
+  // KU_DOT,
+  // KU_TIME,
+  // KU_PLMS,
+};
+
+// void send_grave(char* const key) {
+//     SEND_STRING(SS_RALT("^") key);
+// }
+#define SEND_CIRC(key) SEND_STRING(SS_RALT("^") key);
+#define SEND_GRAVE(key) SEND_STRING(SS_RALT("`") key);
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        switch (keycode) {
+        case KCR_A:
+            SEND_CIRC("a");
+            break;
+        case KCR_E:
+            SEND_CIRC("e");
+            break;
+        case KCR_I:
+            SEND_CIRC("i");
+            break;
+        case KCR_O:
+            SEND_CIRC("o");
+            break;
+        case KCR_U:
+            SEND_CIRC("u");
+            break;
+        case KGR_A:
+            SEND_GRAVE("a");
+            break;
+        case KGR_E:
+            SEND_GRAVE("e");
+            break;
+        case KGR_U:
+            SEND_CIRC("u");
+            break;
+        }
+    }
+    return true;
 };
 
 const int prTap = QK_DYNAMIC_TAPPING_TERM_PRINT;
@@ -33,16 +87,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     , KC_B        , KC_M        , KC_W        , KC_V        , KC_Z       , KC_MINS
       , KC_TAB      , KC_SPC      , MO(NAV)     , KC_ESC      , KC_RALT     , KC_RGUI
     ),
+    // Do not use tap-hold mode in this layer, using a lot of shifted keys
     [PWR] = LAYOUT_vertical(
                   KC_BSLS    , KC_PERC    , KC_LT      , KC_DLR     , KC_AMPR
-      , KC_EQL  , ALT_T(KC_TILD), CTL_T(KC_LBRC), SFT_T(KC_LCBR), MEH_T(KC_LPRN), GUI_T(KC_ASTR)
+      , KC_EQL  , KC_TILD    , KC_LBRC    , KC_LCBR    , KC_LPRN    , KC_ASTR
       , KC_DOT  , KC_7       , KC_5       , KC_3       , KC_1       , KC_9
-                , _______    , _______    , _______    , _______    , _______ , _______
+                , KC_LALT    , KC_LCTL    , KC_LSFT    , KC_LGUI    , _______ , _______
 
                 , KC_AT     , KC_GRAVE   , KC_GT      , KC_HASH    , KC_CIRC
-                , GUI_T(KC_PLUS) , CTL_T(KC_RPRN), SFT_T(KC_RCBR), CTL_T(KC_RBRC), ALT_T(KC_PIPE) , KC_EXLM
+                , KC_PLUS   , KC_RPRN    , KC_RCBR    , KC_RBRC    , KC_PIPE , KC_EXLM
                 , KC_8      , KC_0       , KC_2       , KC_4       , KC_6    , KC_COMM
-      , _______  , _______  , _______ , _______ , _______ , _______
+      , _______ , _______   , KC_RGUI    , KC_RSFT    , KC_RCTL    , KC_RALT
     ),
     [NAV] = LAYOUT_vertical(
                   _______ , _______ , KC_MPRV , KC_MNXT    , _______
@@ -65,5 +120,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , G(KC_6)  , G(KC_7)    , G(KC_8)   , G(KC_9) , G(KC_0) , XXXXXXX
                 , XXXXXXX  , XXXXXXX    , KC_LSFT   , KC_LCTL , KC_LALT , XXXXXXX
       , XXXXXXX , XXXXXXX  , XXXXXXX    , XXXXXXX   , XXXXXXX , XXXXXXX
+    ),
+    [CSP] = LAYOUT_vertical(
+                  KCR_A        , KCR_O      , KCR_E      , KCR_U      , KCR_I
+      , XXXXXXX , KGR_A        , XXXXXXX    , RALT(KC_E) , KGR_U      , RALT(KC_J)
+      , KC_LSFT , RALT(KC_COMM), XXXXXXX    , KGR_E      , RALT(KC_Y) , RALT(KC_COMM)
+                , _______      , _______    , _______    , _______    , _______       , _______
+
+                , UC(0x2026), UC(0xB7)    , UC(0xD7)     , UC(0xB1)      , XXXXXXX
+                , XXXXXXX   , RSA(KC_QUOT), RALT(KC_QUOT), RALT(KC_GRAVE), RALT(KC_6) , XXXXXXX
+                , RALT(KC_5), XXXXXXX     , XXXXXXX      , XXXXXXX       , XXXXXXX    , KC_RSFT
+      , _______ , _______   , _______     , _______      , _______       , _______
     )
 };
