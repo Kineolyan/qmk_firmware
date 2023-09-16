@@ -9,6 +9,7 @@ enum layers {
     NAV,
     WM,
     CSP,
+    SHFN,
 };
 
 enum custom_keycodes {
@@ -20,10 +21,6 @@ enum custom_keycodes {
   KGR_A,
   KGR_E,
   KGR_U,
-  // KU_DIER,
-  // KU_DOT,
-  // KU_TIME,
-  // KU_PLMS,
 };
 
 // void send_grave(char* const key) {
@@ -78,14 +75,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [BASE] = LAYOUT_vertical(
                       KC_SCLN     , KC_COMM     , KC_DOT      , KC_P        , KC_Y
-      , KC_QUES     , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
+      , LT(SHFN, KC_QUES), ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
       , KC_LSFT     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
                     , KC_LGUI     , KC_LALT     , KC_ESC      , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
 
                     , KC_F        , KC_G        , KC_C        , KC_R        , KC_L
                     , GUI_T(KC_D) , MEH_T(KC_H) , SFT_T(KC_T) , CTL_T(KC_N) , ALT_T(KC_S), KC_SLSH
                     , KC_B        , KC_M        , KC_W        , KC_V        , KC_Z       , KC_MINS
-      , KC_TAB      , KC_SPC      , MO(NAV)     , MO(CSP)     , KC_RALT     , KC_RGUI
+      , LT(CSP, KC_TAB), KC_SPC      , MO(NAV)     , KC_ESC      , KC_RALT     , KC_RGUI
     ),
     // Do not use tap-hold mode in this layer, using a lot of shifted keys
     [PWR] = LAYOUT_vertical(
@@ -105,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       , _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX
                 , prTap   , tapUp   , tapDw   , _______    , _______ , _______
 
-                , RCS(KC_C), C(KC_C)    , C(KC_X) , _______ , _______
+                , XXXXXXX  , RCS(KC_C), C(KC_C)   , C(KC_X) , _______
                 , KC_HOME  , KC_LEFT    , KC_DOWN , KC_UP   , KC_RGHT , KC_END
-                , RCS(KC_V), C(KC_V)    , XXXXXXX , XXXXXXX , XXXXXXX , _______
+                , XXXXXXX  , RCS(KC_V), C(KC_V)   , XXXXXXX , XXXXXXX , _______
       , _______ , _______  , _______    , _______ , _______ , _______
     ),
     [WM] = LAYOUT_vertical(
@@ -130,6 +127,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , XXXXXXX   , UC(0x2026)  , UC(0xB7)     , UC(0xD7)      , UC(0xB1)
                 , XXXXXXX   , RSA(KC_QUOT), RALT(KC_QUOT), RALT(KC_GRAVE), RALT(KC_6) , XXXXXXX
                 , XXXXXXX   , RALT(KC_5)  , XXXXXXX      , XXXXXXX       , XXXXXXX    , KC_RSFT
+      , _______ , _______   , _______     , _______      , _______       , _______
+    ),
+    [SHFN] = LAYOUT_vertical(
+                  XXXXXXX , XXXXXXX , C(KC_Z) , C(KC_Y)    , KC_BSPC
+      , _______ , XXXXXXX , C(KC_X) , C(KC_C) , C(KC_V)    , KC_DEL
+      , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , KC_ESC
+                , KC_LALT , KC_LCTL , KC_LSFT , KC_LGUI    , KC_ENTER, KC_SPC
+
+                , XXXXXXX   , KC_F1       , KC_F2        , KC_F3         , KC_F4
+                , XXXXXXX   , KC_F5       , KC_F6        , KC_F7         , KC_F8      , XXXXXXX
+                , XXXXXXX   , KC_F9       , KC_F10       , KC_F11        , KC_F12     , XXXXXXX
       , _______ , _______   , _______     , _______      , _______       , _______
     )
 };
