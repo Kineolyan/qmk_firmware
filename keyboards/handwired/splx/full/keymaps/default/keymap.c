@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [BASE] = LAYOUT_vertical(
                       KC_SCLN     , KC_COMM     , KC_DOT      , KC_P        , KC_Y
-      , LT(SHFN, KC_QUES), ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
+      , KC_QUES     , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
       , KC_LSFT     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
-                    , KC_LGUI     , KC_LALT     , KC_ESC      , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
+                    , MO(SHFN)    , KC_LALT     , KC_ESC      , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
 
                     , KC_F        , KC_G        , KC_C        , KC_R        , KC_L
                     , GUI_T(KC_D) , MEH_T(KC_H) , SFT_T(KC_T) , CTL_T(KC_N) , ALT_T(KC_S), KC_SLSH
@@ -108,15 +108,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       , _______ , _______  , _______    , _______ , _______ , _______
     ),
     [WM] = LAYOUT_vertical(
-                  XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX
-      , XXXXXXX , G(KC_1) , G(KC_2) , G(KC_3) , G(KC_4)    , G(KC_5)
-      , XXXXXXX , KC_LALT , KC_LCTL , KC_LSFT , XXXXXXX    , XXXXXXX
-                , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX , XXXXXXX
+                     XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX
+      , XXXXXXX    , G(KC_1) , G(KC_2) , G(KC_3) , G(KC_4)    , G(KC_5)
+      , XXXXXXX    , KC_LALT , KC_LCTL , KC_LSFT , XXXXXXX    , XXXXXXX
+                   , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX , XXXXXXX
 
-                , XXXXXXX  , G(KC_LEFT) , G(KC_DOWN), G(KC_UP), G(KC_RGHT)
-                , G(KC_6)  , G(KC_7)    , G(KC_8)   , G(KC_9) , G(KC_0) , XXXXXXX
-                , XXXXXXX  , XXXXXXX    , KC_LSFT   , KC_LCTL , KC_LALT , XXXXXXX
-      , XXXXXXX , XXXXXXX  , XXXXXXX    , XXXXXXX   , XXXXXXX , XXXXXXX
+                   , XXXXXXX  , G(KC_LEFT)  , G(KC_DOWN), G(KC_UP), G(KC_RGHT)
+                   , G(KC_6)  , G(KC_7)     , G(KC_8)   , G(KC_9) , G(KC_0) , XXXXXXX
+                   , XXXXXXX  , XXXXXXX     , KC_LSFT   , KC_LCTL , KC_LALT , XXXXXXX
+      , G(KC_ENTER), XXXXXXX  , LSG(KC_SCLN), XXXXXXX   , XXXXXXX , XXXXXXX
     ),
     [CSP] = LAYOUT_vertical(
                   KCR_A        , KCR_O      , KCR_E      , KCR_U      , KCR_I
