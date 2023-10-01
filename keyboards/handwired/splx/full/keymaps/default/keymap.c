@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [CSP] = LAYOUT_vertical(
                   KCR_A        , KCR_O      , KCR_E      , KCR_U      , KCR_I
-      , XXXXXXX , KGR_A        , XXXXXXX    , RALT(KC_E) , KGR_U      , RALT(KC_J)
+      , KC_BSLS , KGR_A        , XXXXXXX    , RALT(KC_E) , KGR_U      , RALT(KC_J)
       , KC_LSFT , RALT(KC_COMM), XXXXXXX    , KGR_E      , RALT(KC_Y) , RALT(KC_COMM)
                 , _______      , _______    , _______    , _______    , _______       , _______
 
