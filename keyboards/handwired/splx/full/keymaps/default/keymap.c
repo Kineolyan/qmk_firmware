@@ -20,7 +20,7 @@ enum custom_keycodes {
   KCR_U,
   KGR_A,
   KGR_E,
-  KGR_U,
+  KGR_U
 };
 
 // void send_grave(char* const key) {
@@ -140,4 +140,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 , XXXXXXX   , KC_F9       , KC_F10       , KC_F11        , KC_F12     , XXXXXXX
       , _______ , _______   , _______     , _______      , _______       , _______
     )
+};
+
+enum combos {
+  KM_ESC,
+  GC_EQL
+};
+
+const uint16_t PROGMEM km_combo[] = {KC_K, KC_M, COMBO_END};
+const uint16_t PROGMEM gc_combo[] = {KC_G, KC_C, COMBO_END};
+
+combo_t key_combos[] = {
+  [KM_ESC] = COMBO(km_combo, KC_ESC),
+  [GC_EQL] = COMBO(gc_combo, KC_EQL)
 };
