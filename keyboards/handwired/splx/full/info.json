@@ -165,6 +165,7 @@
         }
     },
     "tapping": {
-        "term": 200
+        "term": 200,
+        "permissive_hold": true
     }
 }
