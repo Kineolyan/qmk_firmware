@@ -76,13 +76,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_vertical(
                       KC_SCLN     , KC_COMM     , KC_DOT      , KC_P        , KC_Y
       , KC_QUES     , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
-      , KC_LSFT     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
-                    , MO(SHFN)    , KC_LALT     , KC_ESC      , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
+      , KC_UNDS     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
+                    , MO(SHFN)    , XXXXXXX     , KC_LSFT     , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
 
                     , KC_F        , KC_G        , KC_C        , KC_R        , KC_L
                     , GUI_T(KC_D) , MEH_T(KC_H) , SFT_T(KC_T) , CTL_T(KC_N) , ALT_T(KC_S), KC_SLSH
                     , KC_B        , KC_M        , KC_W        , KC_V        , KC_Z       , KC_MINS
-      , LT(CSP, KC_TAB), KC_SPC      , MO(NAV)     , KC_ESC      , KC_RALT     , KC_RGUI
+      , LT(CSP, KC_TAB), KC_SPC   , MO(NAV)     , KC_RSFT     , XXXXXXX     , KC_RGUI
     ),
     // Do not use tap-hold mode in this layer, using a lot of shifted keys
     [PWR] = LAYOUT_vertical(
@@ -144,13 +144,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 enum combos {
   KM_ESC,
-  GC_EQL
+  GC_EQL,
+  CR_AT,
+  DTP_EXLM,
 };
 
 const uint16_t PROGMEM km_combo[] = {KC_K, KC_M, COMBO_END};
 const uint16_t PROGMEM gc_combo[] = {KC_G, KC_C, COMBO_END};
+const uint16_t PROGMEM cr_combo[] = {KC_C, KC_R, COMBO_END};
+const uint16_t PROGMEM ltp_combo[] = {KC_DOT, KC_P, COMBO_END};
 
 combo_t key_combos[] = {
   [KM_ESC] = COMBO(km_combo, KC_ESC),
-  [GC_EQL] = COMBO(gc_combo, KC_EQL)
+  [GC_EQL] = COMBO(gc_combo, KC_EQL),
+  [CR_AT] = COMBO(cr_combo, KC_AT),
+  [DTP_EXLM] = COMBO(ltp_combo, KC_EXLM),
 };
