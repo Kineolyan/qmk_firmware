@@ -31,25 +31,28 @@
     },
     "split": {
        "enabled": true,
-        "matrix_pins": {
-            "right": {
-                "cols": [
-                    "B2", "B1", "B0",
-                    "F0", "F1", "F4", "F5"
-                ],
-                "rows": [
-                    "F7", "B6", "B5", "B4"
-                ]
-            }
-        },
-        "main": "left",
-        "transport": {
-            "protocol": "serial",
-        },
-        "soft_serial_pin": "D0",
-        "usb_detect": {
-            "enabled": true
-        }
+       "matrix_pins": {
+           "right": {
+               "cols": [
+                   "B2", "B1", "B0",
+                   "F0", "F1", "F4", "F5"
+               ],
+               "rows": [
+                   "F7", "B6", "B5", "B4"
+               ]
+           }
+       },
+       "main": "matrix_grid",
+       "handedness": {
+           "matrix_grid": ["F0", "B4"]
+       },
+       "transport": {
+           "protocol": "serial",
+       },
+       "soft_serial_pin": "D0",
+       "usb_detect": {
+           "enabled": true
+       }
     },
     "layouts": {
         "LAYOUT_flat": {
