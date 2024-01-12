@@ -44,7 +44,7 @@
        },
        "main": "matrix_grid",
        "handedness": {
-           "matrix_grid": ["F0", "B4"]
+           "matrix_grid": ["B4", "F0"]
        },
        "transport": {
            "protocol": "serial",
