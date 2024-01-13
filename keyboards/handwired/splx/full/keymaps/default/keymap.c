@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WM] = LAYOUT_vertical(
                      XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX
       , XXXXXXX    , G(KC_1) , G(KC_2) , G(KC_3) , G(KC_4)    , G(KC_5)
-      , XXXXXXX    , KC_LALT , KC_LCTL , KC_LSFT , XXXXXXX    , XXXXXXX
+      , XXXXXXX    , KC_LALT , KC_LCTL , KC_LSFT , G(KC_K)    , XXXXXXX
                    , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX , XXXXXXX
 
                    , XXXXXXX  , G(KC_LEFT)  , G(KC_DOWN), G(KC_UP), G(KC_RGHT)
