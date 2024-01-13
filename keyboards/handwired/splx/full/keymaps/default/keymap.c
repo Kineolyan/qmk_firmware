@@ -147,16 +147,28 @@ enum combos {
   GC_EQL,
   CR_AT,
   DTP_EXLM,
+  GR_ACUTE,
+  HR_AGRAVE,
+  MR_ACIRC,
+  FR_ADIAR,
 };
 
 const uint16_t PROGMEM km_combo[] = {KC_K, KC_M, COMBO_END};
 const uint16_t PROGMEM gc_combo[] = {KC_G, KC_C, COMBO_END};
 const uint16_t PROGMEM cr_combo[] = {KC_C, KC_R, COMBO_END};
 const uint16_t PROGMEM ltp_combo[] = {KC_DOT, KC_P, COMBO_END};
+const uint16_t PROGMEM gr_combo[] = {KC_G, KC_R, COMBO_END};
+const uint16_t PROGMEM hr_combo[] = {KC_H, KC_R, COMBO_END};
+const uint16_t PROGMEM mr_combo[] = {KC_M, KC_R, COMBO_END};
+const uint16_t PROGMEM fr_combo[] = {KC_F, KC_R, COMBO_END};
 
 combo_t key_combos[] = {
   [KM_ESC] = COMBO(km_combo, KC_ESC),
   [GC_EQL] = COMBO(gc_combo, KC_EQL),
   [CR_AT] = COMBO(cr_combo, KC_AT),
   [DTP_EXLM] = COMBO(ltp_combo, KC_EXLM),
+  [GR_ACUTE] = COMBO(gr_combo, RALT(KC_QUOT)),
+  [HR_AGRAVE] = COMBO(hr_combo, RALT(KC_GRAVE)),
+  [MR_ACIRC] = COMBO(mr_combo, RALT(KC_6)),
+  [FR_ADIAR] = COMBO(fr_combo, RSA(KC_QUOT)),
 };
