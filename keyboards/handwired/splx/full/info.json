@@ -168,7 +168,7 @@
         }
     },
     "tapping": {
-        "term": 200,
+        "term": 150,
         "permissive_hold": true
     },
     "oneshot": {
