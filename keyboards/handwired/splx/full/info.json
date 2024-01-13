@@ -170,5 +170,9 @@
     "tapping": {
         "term": 200,
         "permissive_hold": true
+    },
+    "oneshot": {
+        "tap_toggle": 2,
+        "timeout": 3000
     }
 }
