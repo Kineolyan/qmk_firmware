@@ -82,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     , KC_F        , KC_G        , KC_C        , KC_R        , KC_L
                     , GUI_T(KC_D) , MEH_T(KC_H) , SFT_T(KC_T) , CTL_T(KC_N) , ALT_T(KC_S), KC_SLSH
                     , KC_B        , KC_M        , KC_W        , KC_V        , KC_Z       , KC_MINS
-      , LT(CSP, KC_TAB), KC_SPC   , MO(NAV)     , MO(CSP)     , XXXXXXX     , KC_RGUI
+      , LT(CSP, KC_TAB), KC_SPC   , MO(NAV)     , OSL(CSP)     , XXXXXXX     , KC_RGUI
     ),
     // Do not use tap-hold mode in this layer, using a lot of shifted keys
     [PWR] = LAYOUT_vertical(
