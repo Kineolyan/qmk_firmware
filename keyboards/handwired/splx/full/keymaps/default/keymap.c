@@ -23,9 +23,24 @@ enum custom_keycodes {
   KGR_U
 };
 
-// void send_grave(char* const key) {
-//     SEND_STRING(SS_RALT("^") key);
-// }
+enum td_keycodes {
+    SFT_QM // `MO(SHFN)` on held, `?` when tapped
+};
+
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+} td_state_t;
+
+// Function to determine the current tapdance state
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// `finished` and `reset` functions for each tapdance keycode
+void sftqm_finished(tap_dance_state_t *state, void *user_data);
+void sftqm_reset(tap_dance_state_t *state, void *user_data);
+
 #define SEND_CIRC(key) SEND_STRING(SS_RALT("6") key);
 #define SEND_GRAVE(key) SEND_STRING(SS_RALT("`") key);
 
@@ -75,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [BASE] = LAYOUT_vertical(
                       KC_SCLN     , KC_COMM     , KC_DOT      , KC_P        , KC_Y
-      , KC_QUES     , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
+      , TD(SFT_QM)  , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
       , KC_UNDS     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
                     , MO(SHFN)    , XXXXXXX     , OSM(MOD_LSFT) , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
 
@@ -206,3 +221,50 @@ void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record)
     // keycode & 0xFF would be fine.
     unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
 }
+
+td_state_t cur_dance(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) {
+            return TD_SINGLE_TAP;
+        } else {
+            return TD_SINGLE_HOLD;
+        }
+    } else {
+        return TD_UNKNOWN; // Any number higher than the maximum state value you return above
+    }
+}
+
+// Handle the possible states for each tapdance keycode you define:
+static td_state_t td_state;
+
+void sftqm_finished(tap_dance_state_t *state, void *user_data) {
+    td_state = cur_dance(state);
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            register_code16(KC_QUES);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_on(SHFN);
+            break;
+        default:
+            break;
+    }
+}
+
+void sftqm_reset(tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case TD_SINGLE_TAP:
+            unregister_code16(KC_LPRN);
+            break;
+        case TD_SINGLE_HOLD:
+            layer_off(SHFN);
+            break;
+        default:
+            break;
+    }
+}
+
+// Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
+tap_dance_action_t tap_dance_actions[] = {
+    [SFT_QM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftqm_finished, sftqm_reset)
+};
