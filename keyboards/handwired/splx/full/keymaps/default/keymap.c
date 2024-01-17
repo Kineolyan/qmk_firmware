@@ -188,40 +188,6 @@ combo_t key_combos[] = {
   [FR_ADIAR] = COMBO(fr_combo, RSA(KC_QUOT)),
 };
 
-bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
-    // Add the keycodes that have tap-hold to have auto-shift despite of that
-    switch(keycode) {
-        case KC_A:
-        case KC_O:
-        case KC_E:
-        case KC_U:
-        case KC_I:
-        case KC_D:
-        case KC_H:
-        case KC_T:
-        case KC_N:
-        case KC_S:
-            return true;
-        default:
-            return false;
-    }
-}
-
-void autoshift_press_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
-    if (shifted) {
-        add_weak_mods(MOD_BIT(KC_LSFT));
-    }
-    // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-    register_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
-}
-
-void autoshift_release_user(uint16_t keycode, bool shifted, keyrecord_t *record) {
-    // & 0xFF gets the Tap key for Tap Holds, required when using Retro Shift
-    // The IS_RETRO check isn't really necessary here, always using
-    // keycode & 0xFF would be fine.
-    unregister_code16((IS_RETRO(keycode)) ? keycode & 0xFF : keycode);
-}
-
 td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) {
