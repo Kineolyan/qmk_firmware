@@ -162,10 +162,18 @@ enum combos {
   GC_EQL,
   CR_AT,
   DTP_EXLM,
+  // accents
   GR_ACUTE,
   HR_AGRAVE,
   MR_ACIRC,
   FR_ADIAR,
+  // parens
+  JK_LPAR,
+  MW_RPAR,
+  QJ_LCPAR,
+  WV_RCPAR,
+  QJK_LSPAR,
+  MWV_RSPAR,
 };
 
 const uint16_t PROGMEM km_combo[] = {KC_K, KC_M, COMBO_END};
@@ -176,16 +184,30 @@ const uint16_t PROGMEM gr_combo[] = {KC_G, KC_R, COMBO_END};
 const uint16_t PROGMEM hr_combo[] = {KC_H, KC_R, COMBO_END};
 const uint16_t PROGMEM mr_combo[] = {KC_M, KC_R, COMBO_END};
 const uint16_t PROGMEM fr_combo[] = {KC_F, KC_R, COMBO_END};
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM mw_combo[] = {KC_M, KC_W, COMBO_END};
+const uint16_t PROGMEM qj_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM wv_combo[] = {KC_W, KC_V, COMBO_END};
+const uint16_t PROGMEM qjk_combo[] = {KC_Q, KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM mwv_combo[] = {KC_M, KC_W, KC_V, COMBO_END};
 
 combo_t key_combos[] = {
   [KM_ESC] = COMBO(km_combo, KC_ESC),
   [GC_EQL] = COMBO(gc_combo, KC_EQL),
   [CR_AT] = COMBO(cr_combo, KC_AT),
   [DTP_EXLM] = COMBO(ltp_combo, KC_EXLM),
+  // Accents
   [GR_ACUTE] = COMBO(gr_combo, RALT(KC_QUOT)),
   [HR_AGRAVE] = COMBO(hr_combo, RALT(KC_GRAVE)),
   [MR_ACIRC] = COMBO(mr_combo, RALT(KC_6)),
   [FR_ADIAR] = COMBO(fr_combo, RSA(KC_QUOT)),
+  // Parens combos
+  [JK_LPAR] = COMBO(jk_combo, KC_LPRN),
+  [MW_RPAR] = COMBO(mw_combo, KC_RPRN),
+  [QJ_LCPAR] = COMBO(qj_combo, KC_LCBR),
+  [WV_RCPAR] = COMBO(wv_combo, KC_RCBR),
+  [QJK_LSPAR] = COMBO(qjk_combo, KC_LBRC),
+  [MWV_RSPAR] = COMBO(mwv_combo, KC_RBRC),
 };
 
 td_state_t cur_dance(tap_dance_state_t *state) {
