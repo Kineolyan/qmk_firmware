@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [NAV] = LAYOUT_vertical(
                   _______ , _______ , KC_MPRV , KC_MNXT    , _______
-      , QK_BOOT , KC_LALT , KC_LCTL , KC_LSFT , MEH_T(KC_MPLY), GUI_T(KC_MSTP)
+      , _______ , KC_LALT , KC_LCTL , KC_LSFT , MEH_T(KC_MPLY), GUI_T(KC_MSTP)
       , _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , XXXXXXX
                 , prTap   , tapUp   , tapDw   , _______    , _______ , _______
 
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [SHFN] = LAYOUT_vertical(
                   XXXXXXX , XXXXXXX , C(KC_Z) , C(KC_Y)    , KC_BSPC
       , _______ , XXXXXXX , C(KC_X) , C(KC_C) , C(KC_V)    , KC_DEL
-      , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , KC_ESC
+      , QK_BOOT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , KC_ESC
                 , KC_LALT , KC_LCTL , KC_LSFT , KC_LGUI    , KC_ENTER, KC_SPC
 
                 , XXXXXXX   , KC_F1       , KC_F2        , KC_F3         , KC_F4
