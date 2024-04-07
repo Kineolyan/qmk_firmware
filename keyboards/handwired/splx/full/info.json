@@ -47,9 +47,9 @@
            "matrix_grid": ["B4", "F0"]
        },
        "transport": {
-           "protocol": "serial",
+           "protocol": "serial"
        },
-       "soft_serial_pin": "D0",
+       "soft_serial_pin": "D3",
        "usb_detect": {
            "enabled": true
        }
