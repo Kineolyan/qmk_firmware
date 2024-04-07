@@ -242,7 +242,7 @@ void sftqm_finished(tap_dance_state_t *state, void *user_data) {
 void sftqm_reset(tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case TD_SINGLE_TAP:
-            unregister_code16(KC_LPRN);
+            unregister_code16(KC_QUES);
             break;
         case TD_SINGLE_HOLD:
             layer_off(SHFN);
