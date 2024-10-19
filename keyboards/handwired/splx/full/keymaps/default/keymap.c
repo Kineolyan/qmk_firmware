@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_SCLN     , KC_COMM     , KC_DOT      , KC_P        , KC_Y
       , TD(SFT_QM)  , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
       , KC_UNDS     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
-                    , MO(SHFN)    , XXXXXXX     , OSM(MOD_LSFT) , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
+                    , TG(SHFN)    , XXXXXXX     , OSM(MOD_LSFT) , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
 
                     , KC_F        , KC_G        , KC_C        , KC_R        , KC_L
                     , GUI_T(KC_D) , MEH_T(KC_H) , SFT_T(KC_T) , CTL_T(KC_N) , ALT_T(KC_S), KC_SLSH
@@ -148,12 +148,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   XXXXXXX , XXXXXXX , C(KC_Z) , C(KC_Y)    , KC_BSPC
       , _______ , XXXXXXX , C(KC_X) , C(KC_C) , C(KC_V)    , KC_DEL
       , QK_BOOT , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX    , KC_ESC
-                , KC_LALT , KC_LCTL , KC_LSFT , KC_LGUI    , KC_ENTER, KC_SPC
+                , _______ , XXXXXXX , XXXXXXX , XXXXXXX    , KC_ENTER    , KC_SPC
 
-                , XXXXXXX   , KC_F1       , KC_F2        , KC_F3         , KC_F4
-                , XXXXXXX   , KC_F5       , KC_F6        , KC_F7         , KC_F8      , XXXXXXX
-                , XXXXXXX   , KC_F9       , KC_F10       , KC_F11        , KC_F12     , XXXXXXX
-      , _______ , _______   , _______     , _______      , _______       , _______
+                  , XXXXXXX   , KC_F1       , KC_F2        , KC_F3         , KC_F4
+                  , XXXXXXX   , KC_F5       , KC_F6        , KC_F7         , KC_F8      , XXXXXXX
+                  , XXXXXXX   , KC_F9       , KC_F10       , KC_F11        , KC_F12     , XXXXXXX
+      , C(KC_LSFT), KC_LSFT   , KC_MEH      , A(KC_LSFT)   , _______       , _______
     )
 };
 
