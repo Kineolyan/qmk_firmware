@@ -10,8 +10,14 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
+        "mousekey": false,
         "nkro": true
+    },
+    "url": "https://github.com/Kineolyan/qmk_firmware",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xCAFE",
+        "vid": "0xFACE"
     },
     "matrix_pins": {
         "cols": [
@@ -23,12 +29,6 @@
         ]
     },
     "processor": "atmega32u4",
-    "url": "",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0xCAFE",
-        "vid": "0xFACE"
-    },
     "split": {
        "enabled": true,
        "matrix_pins": {
@@ -49,9 +49,11 @@
        "transport": {
            "protocol": "serial"
        },
-       "soft_serial_pin": "D3",
+       "serial": {
+           "pin": "D3"
+       },
        "usb_detect": {
-           "enabled": true
+           "enabled": false
        }
     },
     "layouts": {
