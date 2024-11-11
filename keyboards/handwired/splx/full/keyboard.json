@@ -42,7 +42,6 @@
                ]
            }
        },
-       "main": "matrix_grid",
        "handedness": {
            "matrix_grid": ["B4", "F0"]
        },
@@ -50,7 +49,7 @@
            "protocol": "serial"
        },
        "serial": {
-           "pin": "D3"
+           "pin": "D0"
        },
        "usb_detect": {
            "enabled": false
