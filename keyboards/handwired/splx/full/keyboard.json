@@ -49,11 +49,19 @@
            "protocol": "serial"
        },
        "serial": {
-           "pin": "D0"
+           "pin": "D3"
        },
        "usb_detect": {
-           "enabled": false
+           "enabled": true
        }
+    },
+    "tapping": {
+        "term": 150,
+        "permissive_hold": true
+    },
+    "oneshot": {
+        "tap_toggle": 2,
+        "timeout": 3000
     },
     "layouts": {
         "LAYOUT_vertical": {
@@ -173,13 +181,5 @@
                 { "matrix": [7, 1], "x": 8, "y": 3 }
             ]
         }
-    },
-    "tapping": {
-        "term": 150,
-        "permissive_hold": true
-    },
-    "oneshot": {
-        "tap_toggle": 2,
-        "timeout": 3000
     }
 }
