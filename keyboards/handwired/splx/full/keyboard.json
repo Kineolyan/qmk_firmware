@@ -17,9 +17,7 @@
     "usb": {
         "device_version": "1.2.0",
         "pid": "0xCAFE",
-        "vid": "0xFACE",
-        "wait_for_enumeration": true,
-        "no_startup_check": true
+        "vid": "0xFACE"
     },
     "matrix_pins": {
         "cols": [
