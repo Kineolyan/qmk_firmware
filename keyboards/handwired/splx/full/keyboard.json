@@ -15,7 +15,7 @@
     },
     "url": "https://github.com/Kineolyan/qmk_firmware",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "1.2.0",
         "pid": "0xCAFE",
         "vid": "0xFACE"
     },
