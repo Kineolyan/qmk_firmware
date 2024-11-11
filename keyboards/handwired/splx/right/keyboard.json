@@ -9,18 +9,23 @@
         "command": false,
         "console": false,
         "extrakey": true,
-        "mousekey": true,
+        "mousekey": false,
         "nkro": true
     },
     "matrix_pins": {
-        "cols": [ "B2", "B1", "B0", "F0", "F1", "F4", "F5" ],
-        "rows": [ "F7", "B6", "B5", "B4" ]
-},
-"processor": "atmega32u4",
-"url": "",
-"usb": {
-        "device_version": "1.0.0",
-        "pid": "0xCAFE",
+       "cols": [
+           "B2", "B1", "B0",
+           "F0", "F1", "F4", "F5"
+       ],
+       "rows": [
+           "F7", "B6", "B5", "B4"
+       ]
+    },
+    "processor": "atmega32u4",
+    "url": "",
+    "usb": {
+        "device_version": "0.1.0",
+        "pid": "0xBAAB",
         "vid": "0xBABE"
     },
     "layouts": {
