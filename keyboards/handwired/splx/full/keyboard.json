@@ -57,7 +57,7 @@
     },
     "tapping": {
         "term": 150,
-        "permissive_hold": true
+        "permissive_hold": false
     },
     "oneshot": {
         "tap_toggle": 2,
