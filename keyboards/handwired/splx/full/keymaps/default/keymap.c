@@ -20,8 +20,12 @@ enum custom_keycodes {
   KCR_U,
   KGR_A,
   KGR_E,
-  KGR_U
+  KGR_U,
 };
+
+// Enable gboard combos, as described here: https://docs.qmk.fm/features/combo
+// To import after defining custom keycodes, to be able to use them from combos
+#include "g/keymap_combo.h"
 
 enum td_keycodes {
     SFT_QM // `MO(SHFN)` on held, `?` when tapped
@@ -157,6 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
+/*
 enum combos {
   KM_ESC,
   GC_EQL,
@@ -209,6 +214,7 @@ combo_t key_combos[] = {
   [QJK_LSPAR] = COMBO(qjk_combo, KC_LBRC),
   [MWV_RSPAR] = COMBO(mwv_combo, KC_RBRC),
 };
+*/
 
 td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {

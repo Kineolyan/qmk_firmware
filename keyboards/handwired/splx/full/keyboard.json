@@ -59,6 +59,9 @@
         "term": 150,
         "permissive_hold": false
     },
+    "combo": {
+        "term": 50
+    },
     "oneshot": {
         "tap_toggle": 2,
         "timeout": 3000
