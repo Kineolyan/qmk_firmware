@@ -6,4 +6,3 @@ SEND_STRING_ENABLE = yes
 # Enable combo via gboard system
 COMBO_ENABLE = yes
 VPATH += keyboards/gboards/
-#SRC += g/engine.c
