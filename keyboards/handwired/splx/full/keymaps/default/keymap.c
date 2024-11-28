@@ -23,27 +23,25 @@ enum custom_keycodes {
   KGR_U,
 };
 
+typedef enum {
+    NONE,
+    SFT_QM, // `MO(SHFN)` on held, `?` when tapped
+    MAJI_I // `I` on held, `i` when tapped
+} td_keycodes_t;
+
 // Enable gboard combos, as described here: https://docs.qmk.fm/features/combo
 // To import after defining custom keycodes, to be able to use them from combos
 #include "g/keymap_combo.h"
-
-enum td_keycodes {
-    SFT_QM // `MO(SHFN)` on held, `?` when tapped
-};
 
 typedef enum {
     TD_NONE,
     TD_UNKNOWN,
     TD_SINGLE_TAP,
     TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP,
+    TD_DOUBLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP, // Send two single taps
 } td_state_t;
-
-// Function to determine the current tapdance state
-td_state_t cur_dance(tap_dance_state_t *state);
-
-// `finished` and `reset` functions for each tapdance keycode
-void sftqm_finished(tap_dance_state_t *state, void *user_data);
-void sftqm_reset(tap_dance_state_t *state, void *user_data);
 
 #define SEND_CIRC(key) SEND_STRING(SS_RALT("6") key);
 #define SEND_GRAVE(key) SEND_STRING(SS_RALT("`") key);
@@ -94,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [BASE] = LAYOUT_vertical(
                       KC_SCLN     , KC_COMM     , KC_DOT      , KC_P        , KC_Y
-      , TD(SFT_QM)  , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
+      , TD(SFT_QM)  , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , TD(MAJI_I)
       , KC_UNDS     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
                     , TG(SHFN)    , XXXXXXX     , OSM(MOD_LSFT) , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
 
@@ -161,104 +159,93 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-/*
-enum combos {
-  KM_ESC,
-  GC_EQL,
-  CR_AT,
-  DTP_EXLM,
-  // accents
-  GR_ACUTE,
-  HR_AGRAVE,
-  MR_ACIRC,
-  FR_ADIAR,
-  // parens
-  JK_LPAR,
-  MW_RPAR,
-  QJ_LCPAR,
-  WV_RCPAR,
-  QJK_LSPAR,
-  MWV_RSPAR,
-};
-
-const uint16_t PROGMEM km_combo[] = {KC_K, KC_M, COMBO_END};
-const uint16_t PROGMEM gc_combo[] = {KC_G, KC_C, COMBO_END};
-const uint16_t PROGMEM cr_combo[] = {KC_C, KC_R, COMBO_END};
-const uint16_t PROGMEM ltp_combo[] = {KC_DOT, KC_P, COMBO_END};
-const uint16_t PROGMEM gr_combo[] = {KC_G, KC_R, COMBO_END};
-const uint16_t PROGMEM hr_combo[] = {KC_H, KC_R, COMBO_END};
-const uint16_t PROGMEM mr_combo[] = {KC_M, KC_R, COMBO_END};
-const uint16_t PROGMEM fr_combo[] = {KC_F, KC_R, COMBO_END};
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM mw_combo[] = {KC_M, KC_W, COMBO_END};
-const uint16_t PROGMEM qj_combo[] = {KC_Q, KC_J, COMBO_END};
-const uint16_t PROGMEM wv_combo[] = {KC_W, KC_V, COMBO_END};
-const uint16_t PROGMEM qjk_combo[] = {KC_Q, KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM mwv_combo[] = {KC_M, KC_W, KC_V, COMBO_END};
-
-combo_t key_combos[] = {
-  [KM_ESC] = COMBO(km_combo, KC_ESC),
-  [GC_EQL] = COMBO(gc_combo, KC_EQL),
-  [CR_AT] = COMBO(cr_combo, KC_AT),
-  [DTP_EXLM] = COMBO(ltp_combo, KC_EXLM),
-  // Accents
-  [GR_ACUTE] = COMBO(gr_combo, RALT(KC_QUOT)),
-  [HR_AGRAVE] = COMBO(hr_combo, RALT(KC_GRAVE)),
-  [MR_ACIRC] = COMBO(mr_combo, RALT(KC_6)),
-  [FR_ADIAR] = COMBO(fr_combo, RSA(KC_QUOT)),
-  // Parens combos
-  [JK_LPAR] = COMBO(jk_combo, KC_LPRN),
-  [MW_RPAR] = COMBO(mw_combo, KC_RPRN),
-  [QJ_LCPAR] = COMBO(qj_combo, KC_LCBR),
-  [WV_RCPAR] = COMBO(wv_combo, KC_RCBR),
-  [QJK_LSPAR] = COMBO(qjk_combo, KC_LBRC),
-  [MWV_RSPAR] = COMBO(mwv_combo, KC_RBRC),
-};
-*/
+typedef struct {
+    td_state_t state;
+    td_keycodes_t key;
+} td_tap_t;
 
 td_state_t cur_dance(tap_dance_state_t *state) {
+    // Source
+    // https://github.com/qmk/qmk_firmware/blob/9f76541b29056150cf57d69569a14a59e13995c7/docs/features/tap_dance.md#L222-L248
     if (state->count == 1) {
-        if (state->interrupted || !state->pressed) {
-            return TD_SINGLE_TAP;
-        } else {
-            return TD_SINGLE_HOLD;
-        }
-    } else {
-        return TD_UNKNOWN; // Any number higher than the maximum state value you return above
+        if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
+        // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
+        else return TD_SINGLE_HOLD;
+    } else if (state->count == 2) {
+        // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
+        // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+        // keystrokes of the key, and not the 'double tap' action/macro.
+        if (state->interrupted) return TD_DOUBLE_SINGLE_TAP;
+        else if (state->pressed) return TD_DOUBLE_HOLD;
+        else return TD_DOUBLE_TAP;
     }
+    return TD_UNKNOWN;
 }
 
 // Handle the possible states for each tapdance keycode you define:
-static td_state_t td_state;
+void gen_finished(tap_dance_state_t *state, void *user_data) {
+    td_tap_t* tap_state = (td_tap_t*) user_data;
+    tap_state->state = cur_dance(state);
+    switch (tap_state->key) {
+        case MAJI_I:
+            switch (tap_state->state) {
+                // Last case is for fast typing. Assuming your key is `f`:
+                // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+                // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+                case TD_DOUBLE_SINGLE_TAP: tap_code(KC_I); // fallthrough
+                case TD_SINGLE_TAP: register_code(KC_I); break;
 
-void sftqm_finished(tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case TD_SINGLE_TAP:
-            register_code16(KC_QUES);
+                case TD_DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_I); break;
+
+                // Assuming tap then hold
+                case TD_DOUBLE_HOLD: tap_code(KC_I); // fallthrough
+                case TD_SINGLE_HOLD: register_code(KC_LGUI); break;
+                default: break;
+            }
             break;
-        case TD_SINGLE_HOLD:
-            layer_on(SHFN);
+        case SFT_QM:
+            switch (tap_state->state) {
+                case TD_SINGLE_TAP: register_code16(KC_QUES); break;
+                case TD_SINGLE_HOLD: layer_on(SHFN); break;
+                default: break;
+            }
             break;
-        default:
-            break;
+        case NONE: break;
     }
 }
 
-void sftqm_reset(tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_SINGLE_TAP:
-            unregister_code16(KC_QUES);
+void gen_reset(tap_dance_state_t *state, void *user_data) {
+    td_tap_t* tap_state = (td_tap_t*) user_data;
+    switch (tap_state->key) {
+        case MAJI_I:
+            switch (tap_state->state) {
+                case TD_DOUBLE_SINGLE_TAP:
+                case TD_SINGLE_TAP: unregister_code(KC_I); break;
+
+                case TD_DOUBLE_TAP: unregister_code(KC_I); unregister_code(KC_LSFT); break;
+
+                case TD_SINGLE_HOLD:
+                case TD_DOUBLE_HOLD: unregister_code(KC_LGUI); break;
+                default: break;
+            }
             break;
-        case TD_SINGLE_HOLD:
-            layer_off(SHFN);
-            break;
-        default:
-            break;
+        case SFT_QM:
+            switch (tap_state->state) {
+                case TD_SINGLE_TAP: unregister_code16(KC_QUES); break;
+                case TD_SINGLE_HOLD: layer_off(SHFN); break;
+                default: break;
+            }
+        case NONE: break;
     }
+    tap_state->state = TD_NONE;
 }
 
-// Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
+#define TD_WITH_KEY(tap_code) ((td_tap_t) { .state = TD_NONE, .key = tap_code, })
+
+#define ACTION_TAP_DANCE(state) \
+    { .fn = {NULL, gen_finished, gen_reset}, .user_data = &state, }
+
 tap_dance_action_t tap_dance_actions[] = {
-    [SFT_QM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftqm_finished, sftqm_reset)
+    [SFT_QM] = ACTION_TAP_DANCE(TD_WITH_KEY(SFT_QM)),
+    [MAJI_I] = ACTION_TAP_DANCE(TD_WITH_KEY(MAJI_I)),
 };
