@@ -25,8 +25,7 @@ enum custom_keycodes {
 
 typedef enum {
     NONE,
-    SFT_QM, // `MO(SHFN)` on held, `?` when tapped
-    MAJI_I // `I` on held, `i` when tapped
+    SFT_QM // `MO(SHFN)` on held, `?` when tapped
 } td_keycodes_t;
 
 // Enable gboard combos, as described here: https://docs.qmk.fm/features/combo
@@ -92,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [BASE] = LAYOUT_vertical(
                       KC_SCLN     , KC_COMM     , KC_DOT      , KC_P        , KC_Y
-      , TD(SFT_QM)  , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , TD(MAJI_I)
+      , TD(SFT_QM)  , ALT_T(KC_A) , CTL_T(KC_O) , SFT_T(KC_E) , MEH_T(KC_U) , GUI_T(KC_I)
       , KC_UNDS     , KC_QUOT     , KC_Q        , KC_J        , KC_K        , KC_X
                     , TG(SHFN)    , KC_DEL      , OSM(MOD_LSFT) , MO(PWR)     , KC_ENTER   , LT(WM, KC_BSPC)
 
@@ -187,22 +186,6 @@ void gen_finished(tap_dance_state_t *state, void *user_data) {
     td_tap_t* tap_state = (td_tap_t*) user_data;
     tap_state->state = cur_dance(state);
     switch (tap_state->key) {
-        case MAJI_I:
-            switch (tap_state->state) {
-                // Last case is for fast typing. Assuming your key is `f`:
-                // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
-                // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
-                case TD_DOUBLE_SINGLE_TAP: tap_code(KC_I); // fallthrough
-                case TD_SINGLE_TAP: register_code(KC_I); break;
-
-                case TD_DOUBLE_TAP: register_code(KC_LSFT); register_code(KC_I); break;
-
-                // Assuming tap then hold
-                case TD_DOUBLE_HOLD: tap_code(KC_I); // fallthrough
-                case TD_SINGLE_HOLD: register_code(KC_LGUI); break;
-                default: break;
-            }
-            break;
         case SFT_QM:
             switch (tap_state->state) {
                 case TD_SINGLE_TAP: register_code16(KC_QUES); break;
@@ -217,18 +200,6 @@ void gen_finished(tap_dance_state_t *state, void *user_data) {
 void gen_reset(tap_dance_state_t *state, void *user_data) {
     td_tap_t* tap_state = (td_tap_t*) user_data;
     switch (tap_state->key) {
-        case MAJI_I:
-            switch (tap_state->state) {
-                case TD_DOUBLE_SINGLE_TAP:
-                case TD_SINGLE_TAP: unregister_code(KC_I); break;
-
-                case TD_DOUBLE_TAP: unregister_code(KC_I); unregister_code(KC_LSFT); break;
-
-                case TD_SINGLE_HOLD:
-                case TD_DOUBLE_HOLD: unregister_code(KC_LGUI); break;
-                default: break;
-            }
-            break;
         case SFT_QM:
             switch (tap_state->state) {
                 case TD_SINGLE_TAP: unregister_code16(KC_QUES); break;
@@ -247,5 +218,4 @@ void gen_reset(tap_dance_state_t *state, void *user_data) {
 
 tap_dance_action_t tap_dance_actions[] = {
     [SFT_QM] = ACTION_TAP_DANCE(TD_WITH_KEY(SFT_QM)),
-    [MAJI_I] = ACTION_TAP_DANCE(TD_WITH_KEY(MAJI_I)),
 };
